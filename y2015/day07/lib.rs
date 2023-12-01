@@ -99,11 +99,11 @@ fn parse_gates(s: &str) -> HashMap<&str, Gate<&str>> {
         .collect()
 }
 
-fn solve_both(input: &str) -> Signal {
+fn solve_both(input: &str) -> (Signal, Signal) {
     let gates = parse_gates(input);
     let mut values = HashMap::with_capacity(gates.len());
     let override_ = eval(ANSWER_WIRE, &gates, &mut values);
     values.clear();
     values.insert(OVERRIDE_WIRE, override_);
-    eval(ANSWER_WIRE, &gates, &mut values)
+    (override_, eval(ANSWER_WIRE, &gates, &mut values))
 }
